@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Buku — 296 Library</title>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="catalog.html" class="text-2xl font-bold text-emerald-400">📚 296 Library</a>
+            <a href="catalog.html" class="text-sm bg-slate-800 px-4 py-2 rounded-lg hover:bg-slate-700 transition">Kembali ke Katalog</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
+        <div id="bookDetailContainer" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+            <p class="text-slate-500 text-center py-8">Memuat detail informasi buku...</p>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 border-t border-slate-800 mt-auto">
+        <p>&copy; 2026 296 Library. All rights reserved.</p>
+    </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookId = urlParams.get("id");
+            const container = document.getElementById("bookDetailContainer");
+
+            if (!bookId) {
+                container.innerHTML = `<p class="text-red-500 text-center">ID Buku tidak valid.</p>`;
+                return;
+            }
+
+            const res = await LibraryAPI.call("getPublicCatalog");
+            if (res.status === "ok" || res.data) {
+                const books = res.data || [];
+                const book = books.find(b => b.book_id === bookId);
+
+                if (!book) {
+                    container.innerHTML = `<p class="text-red-500 text-center">Buku tidak ditemukan dalam sistem.</p>`;
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div>
+                            <img src="${book.cover_url || 'https://placehold.co/300x400/0f172a/ffffff?text=No+Cover'}" alt="${book.title}" class="w-full rounded-xl shadow-md border border-slate-200">
+                        </div>
+                        <div class="md:col-span-2 space-y-4">
+                            <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-lg">${book.category || 'Umum'}</span>
+                            <h1 class="text-3xl font-bold text-slate-900">${book.title}</h1>
+                            <p class="text-sm text-slate-600">Penulis: <span class="font-semibold text-slate-900">${book.author || '-'}</span> | Penerbit: <span class="font-semibold text-slate-900">${book.publisher || '-'}</span> (${book.publish_year || '-'})</p>
+                            <hr class="border-slate-100">
+                            <div>
+                                <h3 class="font-semibold text-slate-900 mb-1">Sinopsis / Deskripsi</h3>
+                                <p class="text-sm text-slate-600 leading-relaxed">${book.description || 'Tidak ada deskripsi tersedia untuk buku ini.'}</p>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                    <p class="text-xs text-slate-500">ISBN</p>
+                                    <p class="font-semibold text-sm text-slate-900">${book.isbn || '-'}</p>
+                                </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                    <p class="text-xs text-slate-500">Jumlah Halaman</p>
+                                    <p class="font-semibold text-sm text-slate-900">${book.pages || '-'}</p>
+                                </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                    <p class="text-xs text-slate-500">Lokasi Rak</p>
+                                    <p class="font-semibold text-sm text-slate-900">${book.shelf_location || '-'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `<p class="text-red-500 text-center">Gagal memuat detail buku.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

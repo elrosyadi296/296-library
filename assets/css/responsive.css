@@ -1,0 +1,5 @@
+/* 296 Library Responsive Media Queries */
+@media (max-width: 640px) {
+    .hide-on-mobile { display: none !important; }
+    .mobile-full-width { width: 100% !important; }
+}

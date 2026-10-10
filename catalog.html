@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Buku — 296 Library</title>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="text-2xl font-bold text-emerald-400">📚 296 Library</a>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="index.html" class="hover:text-emerald-300">Beranda</a>
+                <a href="catalog.html" class="text-emerald-400 font-semibold">Katalog Buku</a>
+                <a href="login.html" class="bg-emerald-600 px-4 py-2 rounded-lg text-white hover:bg-emerald-700 transition">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8">
+        <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-900">Katalog Koleksi Buku</h1>
+                <p class="text-slate-500 text-sm mt-1">Temukan buku referensi, novel, dan literatur pilihan perpustakaan kami.</p>
+            </div>
+            <div class="w-full md:w-72">
+                <input type="text" id="searchInput" placeholder="Cari judul, penulis, atau ISBN..." class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm shadow-sm">
+            </div>
+        </div>
+
+        <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center col-span-full py-12">
+                <p class="text-slate-500">Memuat data katalog buku...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 border-t border-slate-800 mt-auto">
+        <p>&copy; 2026 296 Library. All rights reserved.</p>
+    </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", async () => {
+            const res = await LibraryAPI.call("getPublicCatalog");
+            const grid = document.getElementById("catalogGrid");
+            
+            if (res.status === "ok" || res.data) {
+                const books = res.data || [];
+                if (books.length === 0) {
+                    grid.innerHTML = `<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center col-span-full py-12"><p class="text-slate-500">Belum ada koleksi buku tersedia di perpustakaan.</p></div>`;
+                    return;
+                }
+
+                grid.innerHTML = books.map(book => `
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden relative">
+                                <img src="${book.cover_url || 'https://placehold.co/300x400/0f172a/ffffff?text=No+Cover'}" alt="${book.title}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/0f172a/ffffff?text=Cover+Error'">
+                            </div>
+                            <div class="p-5">
+                                <span class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-lg mb-2">${book.category || 'Umum'}</span>
+                                <h3 class="font-bold text-slate-900 text-base line-clamp-1">${book.title}</h3>
+                                <p class="text-xs text-slate-500 mt-1">${book.author || 'Penulis Tidak Diketahui'} (${book.publish_year || '-'})</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0">
+                            <a href="book-detail.html?id=${book.book_id}" class="block w-full text-center py-2 bg-slate-100 text-slate-700 text-xs font-semibold rounded-xl hover:bg-emerald-600 hover:text-white transition">Lihat Detail & Eksemplar</a>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                grid.innerHTML = `<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center col-span-full py-12"><p class="text-red-500">Gagal memuat katalog dari server.</p></div>`;
+            }
+        });
+    </script>
+</body>
+</html>

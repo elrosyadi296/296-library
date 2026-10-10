@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — 296 Library</title>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body class="bg-slate-100 flex min-h-screen">
+    <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between hidden md:flex">
+        <div class="p-6">
+            <h2 class="text-xl font-bold text-emerald-400 mb-8">📚 296 Library</h2>
+            <nav class="space-y-2 text-sm">
+                <a href="dashboard.html" class="block py-2.5 px-4 rounded-lg bg-emerald-600 font-medium">Dashboard</a>
+                <a href="catalog.html" class="block py-2.5 px-4 rounded-lg hover:bg-slate-800">Katalog Buku</a>
+                <a href="#" onclick="localStorage.clear(); window.location.href='login.html';" class="block py-2.5 px-4 rounded-lg text-red-400 hover:bg-slate-800 mt-8">Keluar</a>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="flex-1 p-8">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-bold text-slate-900">Dashboard Utama</h1>
+            <span id="userInfo" class="text-sm font-medium text-slate-600">Administrator</span>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-sm text-slate-500 mb-1">Total Judul Buku</p>
+                <h3 id="statBooks" class="text-3xl font-bold text-slate-900">...</h3>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-sm text-slate-500 mb-1">Total Anggota</p>
+                <h3 id="statMembers" class="text-3xl font-bold text-slate-900">...</h3>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", async () => {
+            const res = await LibraryAPI.call("getDashboardStats");
+            if (res.status === "ok" || res.data) {
+                const data = res.data || res;
+                document.getElementById("statBooks").innerText = data.booksCount || 0;
+                document.getElementById("statMembers").innerText = data.membersCount || 0;
+            }
+        });
+    </script>
+</body>
+</html>

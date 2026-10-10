@@ -1,0 +1,4 @@
+/* 296 Library Base Reset & Tailwind utilities simulation */
+*, ::before, ::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.5; color: #1e293b; background-color: #f8fafc; }
+a { text-decoration: none; color: inherit; }

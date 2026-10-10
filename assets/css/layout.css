@@ -1,0 +1,6 @@
+/* 296 Library Layout Styles */
+.container-fluid { width: 100%; padding-right: 1rem; padding-left: 1rem; margin-right: auto; margin-left: auto; }
+.sidebar-transition { transition: all 0.3s ease-in-out; }
+@media (min-width: 768px) {
+    .md\:flex { display: flex; }
+}
