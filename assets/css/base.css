@@ -1,4 +1,56 @@
-/* 296 Library Base Reset & Tailwind utilities simulation */
-*, ::before, ::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.5; color: #1e293b; background-color: #f8fafc; }
-a { text-decoration: none; color: inherit; }
+/* ==========================================================================
+   BASE STYLES - 296 LIBRARY SYSTEM
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --font-primary: 'Plus Jakarta Sans', sans-serif;
+  --color-primary: #4f46e5;
+  --color-primary-dark: #4338ca;
+  --color-accent: #06b6d4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-primary);
+}
+
+body {
+  background-color: #f8fafc;
+  color: #1e293b;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Selection */
+::selection {
+  background-color: #4f46e5;
+  color: #ffffff;
+}

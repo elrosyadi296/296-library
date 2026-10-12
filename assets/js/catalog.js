@@ -1,9 +1,2 @@
-/**
- * 296 Library — Public Catalog Frontend Controller
- */
-class CatalogController {
-    static async init() {
-        const res = await LibraryAPI.call("getPublicCatalog");
-        return res.status === "ok" ? res.data : [];
-    }
-}
+/** 296 Library — Catalog controller */
+class CatalogController { static async init() { const r = await LibraryAPI.call("getPublicCatalog"); return r.success ? r.data : []; } }

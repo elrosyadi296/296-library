@@ -1,41 +1,147 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full bg-slate-50">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>296 Library — Sistem Informasi Perpustakaan Online</title>
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <title>Literasi MTs YAPIKA - Perpustakaan Digital</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#f0f7ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans">
-    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <span class="text-2xl font-bold text-emerald-400">📚 296 Library</span>
+<body class="h-full flex flex-col font-sans text-slate-800 antialiased">
+
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                    <i class="fa-solid fa-book-bookmark text-lg"></i>
+                </div>
+                <span class="text-base sm:text-xl font-bold whitespace-nowrap bg-gradient-to-r from-brand-600 to-indigo-600 bg-clip-text text-transparent">Literasi MTs YAPIKA</span>
             </div>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="index.html" class="text-emerald-400 hover:text-emerald-300">Beranda</a>
-                <a href="catalog.html" class="hover:text-emerald-300">Katalog Buku</a>
-                <a href="login.html" class="bg-emerald-600 px-4 py-2 rounded-lg text-white hover:bg-emerald-700 transition">Login Petugas / Anggota</a>
+            
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium text-brand-600 bg-brand-50">Beranda</a>
+                <a href="catalog.html" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition">Katalog</a>
+                <a href="dashboard.html" class="hidden px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition">Dashboard</a>
+                <a href="member-portal.html" class="hidden px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition">Portal Anggota</a>
             </nav>
+
+            <div id="auth-slot" class="flex items-center gap-3">
+                <a href="login.html" class="px-4 py-2 rounded-lg text-sm font-semibold bg-brand-600 text-white hover:bg-brand-700 shadow-sm transition">
+                    <i class="fa-solid fa-right-to-bracket mr-1"></i> Masuk
+                </a>
+            </div>
+            <script>try{if(localStorage.getItem("library_session_token_296")&&localStorage.getItem("library_user_data_296"))document.getElementById("auth-slot").innerHTML=""}catch(e){}</script>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-12">
-        <section class="text-center py-16 bg-white rounded-2xl shadow-sm border border-slate-200 mb-12">
-            <h1 class="text-4xl font-extrabold text-slate-900 mb-4">Selamat Datang di Portal Perpustakaan 296 Library</h1>
-            <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-8">Jelajahi ribuan koleksi buku berkualitas, cek ketersediaan eksemplar secara real-time, dan kelola peminjaman dengan mudah.</p>
-            <div class="flex justify-center space-x-4">
-                <a href="catalog.html" class="bg-emerald-600 text-white font-semibold px-6 py-3 rounded-xl shadow hover:bg-emerald-700 transition">Cari Koleksi Buku</a>
-                <a href="login.html" class="bg-slate-100 text-slate-700 font-semibold px-6 py-3 rounded-xl hover:bg-slate-200 transition">Login Sistem</a>
+    <main class="flex-grow">
+        <section class="bg-gradient-to-b from-indigo-900 via-brand-900 to-slate-900 text-white py-20 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-semibold border border-brand-500/30 mb-6">
+                    <i class="fa-solid fa-sparkles text-amber-400"></i> Platform Perpustakaan Digital Modern
+                </span>
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-6">
+                    Temukan dan Pinjam Buku Favoritmu dengan Mudah
+                </h1>
+                <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
+                    Eksplorasi ribuan literatur digital berkualitas tinggi langsung dari perangkat Anda kapan saja dan di mana saja.
+                </p>
+                <div class="flex justify-center gap-4">
+                    <a href="catalog.html" class="px-6 py-3.5 rounded-xl font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-lg transition">
+                        Jelajahi Katalog <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
             </div>
         </section>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">Fitur Unggulan Perpustakaan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Koleksi Lengkap</h3>
+                    <p class="text-sm text-slate-500">Ribuan buku dari berbagai kategori sains, teknologi, fiksi, hingga bisnis.</p>
+                </div>
+                <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Peminjaman Cepat</h3>
+                    <p class="text-sm text-slate-500">Proses peminjaman dan perpanjangan waktu secara online secara instan.</p>
+                </div>
+                <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Aman & Terpercaya</h3>
+                    <p class="text-sm text-slate-500">Keamanan akun anggota dan rekam jejak digital yang terjamin aman.</p>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 text-center py-6 border-t border-slate-800">
-        <p>&copy; 2026 296 Library. All rights reserved.</p>
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md">
+                        <i class="fa-solid fa-book-bookmark text-lg"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white">Literasi MTs YAPIKA</span>
+                </div>
+                <p class="text-sm leading-relaxed">Perpustakaan digital MTs YAPIKA untuk menumbuhkan budaya membaca. Cari koleksi, cek ketersediaan buku, dan pantau pinjamanmu dalam satu tempat.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold text-sm uppercase tracking-wide mb-4">Ketentuan Peminjaman</h4>
+                <ul class="space-y-2.5 text-sm">
+                    <li class="flex items-start gap-3"><i class="fa-solid fa-calendar-days w-4 mt-0.5 text-blue-400"></i><span>Masa pinjam 7 hari</span></li>
+                    <li class="flex items-start gap-3"><i class="fa-solid fa-book w-4 mt-0.5 text-blue-400"></i><span>Maksimal 3 buku sekaligus</span></li>
+                    <li class="flex items-start gap-3"><i class="fa-solid fa-coins w-4 mt-0.5 text-blue-400"></i><span>Denda keterlambatan Rp 2.000 per hari</span></li>
+                    <li class="flex items-start gap-3"><i class="fa-solid fa-bookmark w-4 mt-0.5 text-blue-400"></i><span>Reservasi buku berlaku 7 hari</span></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold text-sm uppercase tracking-wide mb-4">Layanan</h4>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="index.html" class="hover:text-white transition">Beranda</a></li>
+                    <li><a href="catalog.html" class="hover:text-white transition">Katalog Buku</a></li>
+                    <li><a href="login.html" class="hover:text-white transition">Masuk Akun</a></li>
+                    <li class="pt-1 leading-relaxed">Peminjaman dan pengembalian dicatat oleh petugas di meja perpustakaan.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs">
+                <span>&copy; 2026 Literasi MTs YAPIKA. Hak cipta dilindungi.</span>
+                <span>Didukung sistem &middot; 296Studios</span>
+            </div>
+        </div>
     </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="ui-tailwind.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

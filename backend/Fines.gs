@@ -44,3 +44,32 @@ function recordFinePayment(fineId, amountPaid, petugasId) {
     lock.releaseLock();
   }
 }
+function getFinesDetailed() {
+  var names = {};
+  getTableData("Members").forEach(function(m) { names[m.member_id] = m.full_name; });
+  return getTableData("Fines").reverse().slice(0, 100).map(function(f) {
+    return { fine_id: f.fine_id, member: names[f.member_id] || f.member_id, amount: f.amount, status: f.status, reason: f.reason, assigned_date: f.assigned_date };
+  });
+}
+
+function processPayFine(token, fineId) {
+  var user = requireUser(token, STAFF_ROLES);
+  if (!user) return { success: false, message: "Akses ditolak." };
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(10000);
+    var fine = getTableData("Fines").filter(function(f) { return f.fine_id === fineId; })[0];
+    if (!fine) return { success: false, message: "Denda tidak ditemukan." };
+    if (fine.status === "Lunas") return { success: false, message: "Denda ini sudah lunas." };
+    var now = new Date();
+    insertTableRow("FinePayments", { payment_id: "PAY_" + now.getTime(), fine_id: fineId, amount_paid: fine.amount,
+      payment_date: now, processed_by: user.user_id, notes: "Pembayaran denda lunas", created_at: now });
+    updateTableRow("Fines", "fine_id", fineId, { status: "Lunas", paid_date: now });
+    logAudit(user.user_id, "PAY_FINE", "Fines", "Denda " + fineId + " lunas Rp " + fine.amount);
+    return { success: true, message: "Denda Rp " + fine.amount + " dicatat lunas." };
+  } catch (e) {
+    return { success: false, message: "Error: " + e.toString() };
+  } finally {
+    lock.releaseLock();
+  }
+}

@@ -1,6 +1,59 @@
-/* 296 Library Layout Styles */
-.container-fluid { width: 100%; padding-right: 1rem; padding-left: 1rem; margin-right: auto; margin-left: auto; }
-.sidebar-transition { transition: all 0.3s ease-in-out; }
-@media (min-width: 768px) {
-    .md\:flex { display: flex; }
+/* ==========================================================================
+   LAYOUT STYLES - 296 LIBRARY SYSTEM
+   ========================================================================== */
+
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.sidebar-container {
+  width: 280px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  transition: transform 0.3s ease-in-out;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.content-body {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
+  padding: 1.5rem;
+}
+
+.grid-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.grid-catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
 }

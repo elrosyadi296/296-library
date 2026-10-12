@@ -1,44 +1,37 @@
 /**
- * 296 Library - Utilities & API Router (Code.gs entry point counterpart)
+ * 296 Library - Helper umum (router ada di Code.gs; jangan definisikan doGet/doPost di sini)
  */
+var STAFF_ROLES = ["Superadmin", "Admin Perpustakaan", "Petugas"];
 
-function doGet(e) {
-  var action = e.parameter.action || "ping";
-  var result = { status: "ok", message: "296 Library API is running active." };
-  
-  if (action === "ping") {
-    result.time = new Date();
-  } else if (action === "getPublicCatalog") {
-    result.data = getTableData("Books");
-  } else if (action === "getDashboardStats") {
-    result.data = {
-      booksCount: getTableData("Books").length,
-      copiesCount: getTableData("BookCopies").length,
-      membersCount: getTableData("Members").length,
-      loansCount: getTableData("Loans").length
-    };
-  }
-  
-  return ContentService.createTextOutput(JSON.stringify(result))
-    .setMimeType(ContentService.MimeType.JSON);
+function requireUser(token, roles) {
+  var user = validateSession(token);
+  if (!user) return null;
+  if (roles && roles.indexOf(user.role) === -1) return null;
+  return user;
 }
 
-function doPost(e) {
-  try {
-    var payload = JSON.parse(e.postData.contents);
-    var action = payload.action;
-    var result = { success: false, message: "Invalid action." };
-    
-    if (action === "login") {
-      result = apiLogin(payload.username, payload.password);
-    } else {
-      result.message = "Unknown action specified.";
+function updateTableRow(sheetName, keyField, keyValue, updates) {
+  var sheet = getDatabaseSpreadsheet().getSheetByName(sheetName);
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0];
+  var k = headers.indexOf(keyField);
+  for (var r = 1; r < data.length; r++) {
+    if (data[r][k] === keyValue) {
+      for (var f in updates) {
+        var c = headers.indexOf(f);
+        if (c > -1) sheet.getRange(r + 1, c + 1).setValue(updates[f]);
+      }
+      return true;
     }
-    
-    return ContentService.createTextOutput(JSON.stringify(result))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ success: false, message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
   }
+  return false;
+}
+
+function sha256Hex_(text) {
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, String(text), Utilities.Charset.UTF_8)
+    .map(function(b) { return ('0' + (b & 0xFF).toString(16)).slice(-2); }).join('');
+}
+
+function randomPassword_() {
+  return Utilities.getUuid().replace(/-/g, "").slice(0, 10) + "!A9";
 }

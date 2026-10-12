@@ -1,5 +1,49 @@
-/* 296 Library Responsive Media Queries */
-@media (max-width: 640px) {
-    .hide-on-mobile { display: none !important; }
-    .mobile-full-width { width: 100% !important; }
+/* ==========================================================================
+   RESPONSIVE STYLES - 296 LIBRARY SYSTEM
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .sidebar-container {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar-container.active {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .content-body {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-catalog {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .auth-layout {
+    padding: 1rem;
+  }
+}
+
+@media print {
+  .sidebar-container,
+  header,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    background: white !important;
+  }
 }

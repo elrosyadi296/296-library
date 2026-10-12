@@ -3,11 +3,12 @@
  */
 
 function apiLogin(username, password) {
+  if (!username || !password) return { success: false, message: "Username dan password wajib diisi." };
   var users = getTableData("Users");
   var user = null;
   
   for (var i = 0; i < users.length; i++) {
-    if (users[i].username === username && users[i].status === "Active") {
+    if (String(users[i].username) === String(username) && users[i].status === "Active") {
       user = users[i];
       break;
     }
@@ -87,7 +88,7 @@ function createInitialSuperadmin() {
   var usersSheet = ss.getSheetByName("Users");
   
   var username = "superadmin296";
-  var plainPassword = "AdminPassword296!"; // Password default awal yang kuat
+  var plainPassword = Utilities.getUuid().replace(/-/g, "").slice(0, 12) + "!A9"; // acak, tampil sekali di hasil
   var fullName = "Super Administrator Utama";
   var email = "admin@296library.local";
   
@@ -119,5 +120,5 @@ function createInitialSuperadmin() {
     new Date()
   ]);
   
-  return "Berhasil membuat Superadmin! Username: " + username + " | Password Default: " + plainPassword + " (Silakan ubah setelah login)";
+  return "Berhasil membuat Superadmin! Username: " + username + " | Password Default: " + plainPassword + " (simpan sekarang, tidak ditampilkan lagi)";
 }

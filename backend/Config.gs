@@ -4,7 +4,7 @@
 
 function getConfig() {
   // Masukkan Spreadsheet ID Anda di bawah ini dengan benar (contoh: "1A2B3C4D5E6F...")
-  var spreadsheetId = "1xmZsk1hsrT6P_WtBUJCrDV9_PTbkgjXrRPssk2ExcuY"; // Ganti dengan ID Spreadsheet Anda yang sebenarnya
+  var spreadsheetId = "1sMbUwCsDkrnPYlKw_-895AV4wsvfxNoYIDDTiF8HYz8"; // Ganti dengan ID Spreadsheet Anda yang sebenarnya
   
   return {
     spreadsheetId: spreadsheetId,

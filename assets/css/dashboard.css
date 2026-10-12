@@ -1,3 +1,201 @@
-/* 296 Library Dashboard Specific Styles */
-.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
-.table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* ==========================================================================
+DASHBOARD STYLES - 296 LIBRARY SYSTEM
+========================================================================== */
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+display: grid;
+grid-template-columns: repeat(12, minmax(0, 1fr));
+gap: 1.5rem;
+}
+
+.col-span-12 { grid-column: span 12 / span 12; }
+.col-span-8 { grid-column: span 12 / span 12; }
+.col-span-4 { grid-column: span 12 / span 12; }
+.col-span-6 { grid-column: span 12 / span 12; }
+
+@media (min-width: 1024px) {
+.col-span-8 { grid-column: span 8 / span 12; }
+.col-span-4 { grid-column: span 4 / span 12; }
+.col-span-6 { grid-column: span 6 / span 12; }
+}
+
+/* Statistics Cards */
+.stat-card {
+background: #ffffff;
+border-radius: 1rem;
+padding: 1.5rem;
+border: 1px solid #e2e8f0;
+position: relative;
+overflow: hidden;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+}
+
+.stat-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.1);
+border-color: #c7d2fe;
+}
+
+.stat-card-icon {
+width: 48px;
+height: 48px;
+border-radius: 0.75rem;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.25rem;
+margin-bottom: 1rem;
+}
+
+.stat-card-icon.primary { background: #e0e7ff; color: #4f46e5; }
+.stat-card-icon.success { background: #dcfce7; color: #16a34a; }
+.stat-card-icon.warning { background: #fef3c7; color: #d97706; }
+.stat-card-icon.info { background: #cffafe; color: #0891b2; }
+
+.stat-trend {
+display: inline-flex;
+align-items: center;
+gap: 0.25rem;
+font-size: 0.75rem;
+font-weight: 600;
+padding: 0.125rem 0.5rem;
+border-radius: 9999px;
+}
+
+.stat-trend.up { background: #dcfce7; color: #16a34a; }
+.stat-trend.down { background: #fee2e2; color: #dc2626; }
+
+/* Dashboard Widgets & Containers */
+.dashboard-widget {
+background: #ffffff;
+border-radius: 1rem;
+border: 1px solid #e2e8f0;
+padding: 1.5rem;
+box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+height: 100%;
+}
+
+.widget-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 1.25rem;
+padding-bottom: 0.75rem;
+border-bottom: 1px solid #f1f5f9;
+}
+
+.widget-title {
+font-size: 1rem;
+font-weight: 700;
+color: #0f172a;
+}
+
+/* Progress Bars for Library Metrics (e.g. Storage, Book Categories) */
+.metric-progress-wrapper {
+margin-bottom: 1rem;
+}
+
+.metric-info {
+display: flex;
+justify-content: space-between;
+font-size: 0.875rem;
+font-weight: 500;
+color: #475569;
+margin-bottom: 0.375rem;
+}
+
+.progress-track {
+width: 100%;
+height: 8px;
+background-color: #f1f5f9;
+border-radius: 9999px;
+overflow: hidden;
+}
+
+.progress-fill {
+height: 100%;
+border-radius: 9999px;
+transition: width 0.6s ease;
+}
+
+.progress-fill.indigo { background: linear-gradient(90deg, #4f46e5, #6366f1); }
+.progress-fill.emerald { background: linear-gradient(90deg, #059669, #10b981); }
+.progress-fill.amber { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.progress-fill.cyan { background: linear-gradient(90deg, #0891b2, #06b6d4); }
+
+/* Recent Activity Feed / Table */
+.activity-item {
+display: flex;
+align-items: flex-start;
+gap: 1rem;
+padding: 0.875rem 0;
+border-bottom: 1px solid #f1f5f9;
+}
+
+.activity-item:last-child {
+border-bottom: none;
+padding-bottom: 0;
+}
+
+.activity-avatar {
+width: 36px;
+height: 36px;
+border-radius: 50%;
+background: #e2e8f0;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.875rem;
+font-weight: 600;
+color: #475569;
+flex-shrink: 0;
+}
+
+.activity-content {
+flex: 1;
+font-size: 0.875rem;
+}
+
+.activity-title {
+color: #1e293b;
+font-weight: 600;
+margin-bottom: 0.125rem;
+}
+
+.activity-meta {
+color: #94a3b8;
+font-size: 0.75rem;
+}
+
+/* Loan Status Badges */
+.badge-loan {
+padding: 0.25rem 0.625rem;
+border-radius: 9999px;
+font-size: 0.75rem;
+font-weight: 600;
+display: inline-flex;
+align-items: center;
+gap: 0.375rem;
+}
+
+.badge-loan.active {
+background-color: #dbeafe;
+color: #1d4ed8;
+}
+
+.badge-loan.returned {
+background-color: #dcfce7;
+color: #15803d;
+}
+
+.badge-loan.overdue {
+background-color: #fee2e2;
+color: #b91c1c;
+}
+
+.badge-loan.pending {
+background-color: #fef3c7;
+color: #b45309;
+}

@@ -1,8 +1,2 @@
-/**
- * 296 Library — Books Management Frontend Controller
- */
-class BooksController {
-    static async fetchAll() {
-        return await LibraryAPI.call("getPublicCatalog");
-    }
-}
+/** 296 Library — Books controller */
+class BooksController { static fetchAll() { return LibraryAPI.call("getPublicCatalog"); } }

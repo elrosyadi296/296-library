@@ -2,8 +2,8 @@
   "timeZone": "Asia/Jakarta",
   "dependencies": {},
   "webapp": {
-    "executeAs": "USER_ACCESS",
-    "access": "ANYONE"
+    "executeAs": "USER_DEPLOYING",
+    "access": "ANYONE_ANONYMOUS"
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8"

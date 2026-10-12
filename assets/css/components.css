@@ -1,4 +1,83 @@
-/* 296 Library Component Styles */
-.btn-primary { background-color: #059669; color: #ffffff; padding: 0.5rem 1rem; border-radius: 0.75rem; font-weight: 600; transition: background-color 0.2s; }
-.btn-primary:hover { background-color: #047857; }
-.card-stats { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+/* ==========================================================================
+   COMPONENT STYLES - 296 LIBRARY SYSTEM
+   ========================================================================== */
+
+/* Glassmorphism Effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Custom Cards */
+.card-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px rgba(79, 70, 229, 0.15);
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #4338ca 0%, #3730a3 100%);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Badges */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+tr:hover td {
+  background-color: #f8fafc;
+}

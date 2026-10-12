@@ -53,17 +53,7 @@ function initDatabase() {
     settingsSheet.getRange(2, 1, defaultSettings.length, defaultSettings[0].length).setValues(defaultSettings);
   }
   
-  // Create default Superadmin if Users is empty
-  var usersSheet = ss.getSheetByName("Users");
-  if (usersSheet.getLastRow() <= 1) {
-    var adminId = "USR_" + new Date().getTime();
-    var passwordHash = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, "admin296", Utilities.Charset.UTF_8);
-    var hashHex = passwordHash.map(function(byte) {
-      return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-    }).join('');
-    
-    usersSheet.appendRow([adminId, "superadmin", hashHex, "Super Administrator Utama", "Superadmin", "admin@296library.local", "Active", new Date(), new Date()]);
-  }
+  // Superadmin dibuat terpisah lewat createInitialSuperadmin() (password acak).
   
   return "Database initialized successfully!";
 }
