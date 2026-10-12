@@ -53,6 +53,12 @@ function route_(action, p) {
     case "cancelReservation": return cancelReservation(p.token, p.reservationId);
     case "borrowBook": return processBorrowBook(p.token, p.memberId, p.copyId);
     case "returnBook": return processReturnBook(p.token, p.loanId);
+    case "getMyAccount": return getMyAccount(p.token);
+    case "updateMyAccount": return updateMyAccount(p.token, p);
+    case "changeMyPassword": return changeMyPassword(p.token, p);
+    case "listAccounts": return listAccounts(p.token);
+    case "adminUpdateAccount": return adminUpdateAccount(p.token, p);
+    case "adminResetPassword": return adminResetPassword(p.token, p);
     default: return { success: false, message: "Aksi tidak dikenal: " + action };
   }
 }

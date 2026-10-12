@@ -74,7 +74,8 @@ function validateSession(token) {
         var users = getTableData("Users");
         for (var j = 0; j < users.length; j++) {
           if (users[j].user_id === sessions[i].user_id) {
-            return users[j];
+            // Akun yang dinonaktifkan tidak boleh memakai sesi lama.
+            return users[j].status === "Active" ? users[j] : null;
           }
         }
       }
